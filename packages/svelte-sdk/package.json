@@ -1,5 +1,5 @@
 {
-    "name": "@dojoengine/sdk",
+    "name": "@dojoengine/svelte-sdk",
     "version": "1.0.2",
     "description": "Dojo SDK: Build onchain and provable apps faster",
     "author": "Dojo Team",
@@ -58,7 +58,8 @@
         "sdk",
         "engine",
         "typescript",
-        "torii"
+        "torii",
+        "svelte"
     ],
     "engines": {
         "node": ">=18.0.0"

@@ -1,6 +1,7 @@
 {
     "name": "example-vite-svelte-sdk",
-    "version": "0.0.1",
+    "private": true,
+    "version": "0.0.0",
     "type": "module",
     "scripts": {
         "dev": "vite dev",
@@ -8,6 +9,17 @@
         "preview": "vite preview",
         "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    },
+    "dependencies": {
+        "@dojoengine/core": "workspace:*",
+        "@dojoengine/create-burner": "workspace:*",
+        "@dojoengine/svelte-sdk": "workspace:*",
+        "@dojoengine/state": "workspace:*",
+        "@dojoengine/torii-client": "workspace:*",
+        "@dojoengine/torii-wasm": "workspace:*",
+        "@dojoengine/utils": "workspace:*",
+        "immer": "^10.1.1",
+        "starknet": "^6.11.0"
     },
     "devDependencies": {
         "@sveltejs/adapter-auto": "^3.0.0",
