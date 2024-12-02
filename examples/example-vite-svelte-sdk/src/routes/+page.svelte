@@ -1,7 +1,7 @@
 <script lang="ts">
     import { init } from "@dojoengine/svelte-sdk";
-    import { Schema, schema } from "$lib/bindings";
-    import { dojoConfig } from "$lib/dojoConfig";
+    import { type Schema, schema } from "../lib/bindings";
+    import { dojoConfig } from "../lib/dojoConfig";
     import { onMount } from "svelte";
     import { writable } from 'svelte/store';
 
