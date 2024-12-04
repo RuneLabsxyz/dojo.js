@@ -5,9 +5,12 @@ import {
     Draft,
     Patch,
     applyPatches,
+    enablePatches,
     WritableDraft,
 } from "immer";
 import { ParsedEntity, SchemaType } from "../types";
+
+enablePatches();
 
 /**
  * Interface for a pending transaction, containing the transaction ID,

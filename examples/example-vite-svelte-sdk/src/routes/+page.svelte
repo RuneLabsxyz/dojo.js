@@ -1,46 +1,29 @@
 <script lang="ts">
-    import { init } from "@dojoengine/svelte-sdk";
+    import { init, type SDK } from "@dojoengine/svelte-sdk";
     import { type Schema, schema } from "../lib/bindings";
     import { dojoConfig } from "../lib/dojoConfig";
     import { onMount } from "svelte";
-    import { writable } from 'svelte/store';
-    import { setupBurnerManager } from "@dojoengine/create-burner";
+    import { writable, type Writable } from "svelte/store";
+    import {
+        BurnerManager,
+        setupBurnerManager,
+    } from "@dojoengine/create-burner";
     import Session from "../lib/spawn/session.svelte";
+    import { DojoProvider } from "@dojoengine/core";
+    import { type IClient, client as getClient } from "$lib/contracts.gen";
+    import { setupClient } from "$lib/contexts/client";
+    import { setupBurner } from "$lib/contexts/account";
+    import { setupStore } from "$lib/contexts/store";
 
-    const sdk = writable();
-    const burnerManager = writable();
-
-    onMount(async () => {
-        try {
-            const initialized = await init(
-                {
-                    client: {
-                        rpcUrl: dojoConfig.rpcUrl,
-                        toriiUrl: dojoConfig.toriiUrl,
-                        relayUrl: dojoConfig.relayUrl,
-                        worldAddress: dojoConfig.manifest.world.address,
-                    },
-                    domain: {
-                        name: "WORLD_NAME",
-                        version: "1.0",
-                        chainId: "KATANA",
-                        revision: "1",
-                    },
-                },
-                schema
-            );
-            
-            sdk.set(initialized);
-            burnerManager.set(await setupBurnerManager(dojoConfig));
-        } catch (error) {
-            console.error("Failed to initialize the application:", error);
-        }
-    });
+    setupStore();
+    const setup = Promise.all([
+        setupClient(dojoConfig),
+        setupBurner(dojoConfig),
+    ]).then((e) => console.log("Finished!"));
 </script>
 
-{#if $sdk && $burnerManager}
-    <!-- <Session {$sdk}{$burnerManager} /> -->
-{:else}
+{#await setup}
     <p>Loading...</p>
-{/if}
-
+{:then _}
+    <Session />
+{/await}
